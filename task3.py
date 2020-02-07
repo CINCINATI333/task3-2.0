@@ -10,30 +10,28 @@ def unique(x):
     x = set(x)
     x = list(x)
     return x
+def TheBestDataCleaner(x):
+    x = x.split('\n ')
+    for k in range(len(x)):
+        x[k] = x[k].split('|')
+        x[k][0] = x[k][0].replace(' ','')
+        x[k][1] = x[k][1].replace(' ','')
+    return x
 
+def TheBestDataCleaner2(y):
+    y = y.split('\n ')
+    for k in range(len(y)):
+        y[k] = y[k].split('|')
+        y[k][0] = y[k][0].replace(' ','')
+        y[k][1] = y[k][1].replace(' ','')
+        y[k][2] = y[k][2].replace(' ','')
+    return y
+qua = TheBestDataCleaner(qua)
+part = TheBestDataCleaner(part)
+users = TheBestDataCleaner(users)
+les = TheBestDataCleaner2(les)
+print(les)
 les = les.split('\n ')
-qua = qua.split('\n ')
-part = part.split('\n ')
-users = users.split('\n ')
-for k in range(len(qua)):
-    qua[k] = qua[k].split('|')
-    qua[k][0] = qua[k][0].replace(' ','')
-    qua[k][1] = qua[k][1].replace(' ','')
-for k in range(len(part)):
-    part[k] = part[k].split('|')
-    part[k][0] = part[k][0].replace(' ','')
-    part[k][1] = part[k][1].replace(' ','')
-for k in range(len(users)):
-    users[k] = users[k].split('|')
-    users[k][0] = users[k][0].replace(' ','')
-    users[k][1] = users[k][1].replace(' ','')
-#print(qua)
-for k in range(len(les)):
-    les[k] = les[k].split('|')
-    les[k][0] = les[k][0].replace(' ','')
-    les[k][1] = les[k][1].replace(' ','')
-    les[k][2] = les[k][2].replace(' ','')
-#print(les)
 teach = users # - все учителя
 for k in range(len(users)):
     if users[k][1] == 'tutor':
