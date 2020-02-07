@@ -77,7 +77,7 @@ for k in range(len(event)):
             teaevent = unique(teaevent)  #ID Учителей, которые преподавали в этот день (11 янв. например)
 #print('teaevent','\n',teaevent) 
 
-#print(teach) # - Тут все чуваки, которые были на уроках 11 января
+#print(teach) # - Тут все люди, которые были на уроках 11 января
 #print(part)
 lesday = [] #- тут будут номера события,на которых были учителя
 for k in range(len(teaevent)):
