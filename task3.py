@@ -74,26 +74,24 @@ for x in range(len(lesday)):
                 lesday[x].append(part[i]) #[[event],[tutorID (11.01.2020)]]
 lessons = d #[11.01.2020[LesID,event,subject,[date]],12.01.2020[]...]]
 techtutor = [[],[],[],[],[],[],[],[],[],[]]
-iter = 0
 for x in range(len(lesday)):
     for k in range(len(lesday[x])):
         for i in range(len(lessons[x])):
             if lesday[x][k][0] == lessons[x][i][1]: #сравниваем event
                 for g in range(len(qua)):
                     if lessons[x][i][0] == qua[g][0]:
-                        iter += 1
                         techtutor[x].append(lesday[x][k][1]) #учитель
                         techtutor[x].append(qua[g][1]) #оценка
-iter = 0
 for x in range(len(techtutor)):    
     ans.write(str(x+11)+ '\n')
     for k in range(0,len(techtutor[x]),2):
         ans.write(techtutor[x][k] + '|'+ techtutor[x][k+1] + '\n')   #Дальше в эксель (для разнообразия)
 print('done')      
-#for k in range(len(les)):
-    #if les[k][3][1][0] == '2' and les[k][3][1][1] >= '1':
-        #print(les[k][3]) # ['2020-01-16', '21:34:17.949531'] - только в этом случае из-за часового пояса изменится дата 
-
+'''
+for k in range(len(les)):
+    if les[k][3][1][0] == '2' and les[k][3][1][1] >= '1':
+        print(les[k][3]) # ['2020-01-16', '21:34:17.949531'] - только в этом случае из-за часового пояса изменится дата 
+'''
 l.close
 q.close
 p.close
