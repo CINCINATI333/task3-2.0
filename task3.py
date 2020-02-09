@@ -45,13 +45,11 @@ for k in range(len(a)):
     date.append(a[k][3][0])
 date = unique(date)
 date.sort()
-
 d = [[],[],[],[],[],[],[],[],[],[]] # массив с уроками за каждый день
 for k in range(len(date)):
     for i in range(len(a)):
         if a[i][3][0] == date[k]:
             d[k].append(a[i])
-lesid = []
 event = [[],[],[],[],[],[],[],[],[],[]]
 for x in range(len(event)):
     for k in range(len(d[x])):
@@ -70,7 +68,8 @@ lesday = [[],[],[],[],[],[],[],[],[],[]] #- тут будут номера со�
 for x in range(len(lesday)):  
     for k in range(len(parttutor[x])):
         for i in range(len(part)):
-            if part[i][1] == parttutor[x][k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер события
+            if part[i][1] == parttutor[x][k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер
+                                                                                                                        #события
                 lesday[x].append(part[i]) #[[event],[tutorID (11.01.2020)]]
 lessons = d #[11.01.2020[LesID,event,subject,[date]],12.01.2020[]...]]
 techtutor = [[],[],[],[],[],[],[],[],[],[]]
@@ -82,10 +81,16 @@ for x in range(len(lesday)):
                     if lessons[x][i][0] == qua[g][0]:
                         techtutor[x].append(lesday[x][k][1]) #учитель
                         techtutor[x].append(qua[g][1]) #оценка
-for x in range(len(techtutor)):    
+techtutorohnespases = [[],[],[],[],[],[],[],[],[],[]]
+for x in range(len(techtutor)):
+    for k in range(1,len(techtutor[x]),2):
+        if techtutor[x][k] != '':
+            techtutorohnespases[x].append(techtutor[x][k-1])
+            techtutorohnespases[x].append(techtutor[x][k]) #не учитываем уроки без оценок
+for x in range(len(techtutorohnespases)):    
     ans.write(str(x+11)+ '\n')
-    for k in range(0,len(techtutor[x]),2):
-        ans.write(techtutor[x][k] + '|'+ techtutor[x][k+1] + '\n')   #Дальше в эксель (для разнообразия)
+    for k in range(0,len(techtutorohnespases[x]),2):
+        ans.write(techtutorohnespases[x][k] + '|'+ techtutorohnespases[x][k+1] + '\n')   #Дальше в работа в экселе (для разнообразия)
 print('done')      
 '''
 for k in range(len(les)):
