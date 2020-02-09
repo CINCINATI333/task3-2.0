@@ -2,6 +2,7 @@ l = open('lessons.txt','r')
 q = open('quality.txt','r')
 p = open('participants.txt','r')
 u = open('users.txt','r')
+ans = open('ans.txt', 'w')
 les = l.read()
 qua = q.read()
 part = p.read()
@@ -17,7 +18,6 @@ def TheBestDataCleaner(x):
         x[k][0] = x[k][0].replace(' ','')
         x[k][1] = x[k][1].replace(' ','')
     return x
-
 def TheBestDataCleaner2(y):
     y = y.split('\n ')
     for k in range(len(y)):
@@ -30,100 +30,66 @@ qua = TheBestDataCleaner(qua)
 part = TheBestDataCleaner(part)
 users = TheBestDataCleaner(users)
 les = TheBestDataCleaner2(les)
-print(les)
-les = les.split('\n ')
-teach = users # - все учителя
+teach = [] # - все учителя
 for k in range(len(users)):
     if users[k][1] == 'tutor':
-        teach.remove(users[k])
-print('teach','\n',teach)
-print('users','\n', users)
+        teach.append(users[k])
 a = [] #Только уроки физики
 for k in range(len(les)):
     if str(les[k][2]) == 'phys':
         a.append(les[k])
 for k in range(len(les)):
     les[k][3] = les[k][3].split()
-    #print(les[k][3])
-b = []
-i = 0
 date = []
 for k in range(len(a)):
     date.append(a[k][3][0])
-date = set(date)
-date = list(date)
+date = unique(date)
 date.sort()
-#print(date)
+
 d = [[],[],[],[],[],[],[],[],[],[]] # массив с уроками за каждый день
 for k in range(len(date)):
     for i in range(len(a)):
         if a[i][3][0] == date[k]:
             d[k].append(a[i])
-#print(d[0])
-event = []
-#for j in range(len)
-for k in range(len(d)):
-    for i in range(len(part)):
-        if d[0][k][1] == part[i][0]:
-            event.append(part[i][1]) # - ID всех пользователей, которые были в этот день
-event = set(event)
-event = list(event)
-print(event)
-teaevent = []
-for k in range(len(event)):
-    for i in range(len(teach)):
-        if event[k] == teach[i][0]: #Если ID человека совпадает с ID учителя, то он учитель)))
-            teaevent.append(event[k])
-            teaevent = unique(teaevent)  #ID Учителей, которые преподавали в этот день (11 янв. например)
-#print('teaevent','\n',teaevent) 
-
-#print(teach) # - Тут все люди, которые были на уроках 11 января
-#print(part)
-lesday = [] #- тут будут номера события,на которых были учителя
-for k in range(len(teaevent)):
-    for i in range(len(part)):
-        if part[i][1] == teaevent[k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер события
-            lesday.append(part[i][0])
-            #lesday = unique(lesday)
-print(lesday)
-numoflessons = []
-for k in range(len(lesday)):
-    for i in range(len(d)):
-        if lesday[k] == d[0][i][1]:
-            numoflessons.append(d[0][i][0])
-print(numoflessons)
-
-
-
-
-
-'''mbydate = []
-for k in range(len(a)):
-    for i in range(len(qua)):
-        if a[k][0] == qua[i][0]:
-            mbydate.append(qua[i])'''
-#mbydate = set(mbydate)
-#bydate = list(mbydate)
-#print(mbydate)
-#print(len(mbydate))
-
-'''
-print('-----------------------------') 
-print(d[0])    #Все Уроки по физике 11 января
-print('-----------------------------')       
-print(d[0][0])
-print('-----------------------------')
-
-marks = []
-for k in range(len(d)):
-    for i in range(len(qua)):
-        if d[k][0][0] == qua[i][0]:
-'''
-#print(int(qua[0][1])+int(qua[1][1])) - складываем оценки
-#print(d[k])
-    # print(a[k][3],'---',a[k][3][0][8],a[k][3][0][9],'---', a[k][0])
-
-
+lesid = []
+event = [[],[],[],[],[],[],[],[],[],[]]
+for x in range(len(event)):
+    for k in range(len(d[x])):
+        for i in range(len(part)):
+            if d[x][k][1] == part[i][0]:
+                event[x].append(part[i][1]) # - ID всех пользователей, которые были в этот день       
+                event[x] = unique(event[x])
+parttutor = [[],[],[],[],[],[],[],[],[],[]]
+for x in range(len(event)):
+    for k in range(len(event[x])):
+        for i in range(len(teach)):
+            if event[x][k] == teach[i][0]: #Если ID человека совпадает с ID учителя, то он учитель)))
+                parttutor[x].append(event[x][k])
+                parttutor[x] = unique(parttutor[x])  #ID Учителей, которые преподавали в этот день (11 янв. например)
+lesday = [[],[],[],[],[],[],[],[],[],[]] #- тут будут номера события,на которых были учителя
+for x in range(len(lesday)):  
+    for k in range(len(parttutor[x])):
+        for i in range(len(part)):
+            if part[i][1] == parttutor[x][k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер события
+                lesday[x].append(part[i]) #[[event],[tutorID (11.01.2020)]]
+lessons = d #[11.01.2020[LesID,event,subject,[date]],12.01.2020[]...]]
+techtutor = [[],[],[],[],[],[],[],[],[],[]]
+iter = 0
+for x in range(len(lesday)):
+    for k in range(len(lesday[x])):
+        for i in range(len(lessons[x])):
+            if lesday[x][k][0] == lessons[x][i][1]: #сравниваем event
+                for g in range(len(qua)):
+                    if lessons[x][i][0] == qua[g][0]:
+                        iter += 1
+                        techtutor[x].append(lesday[x][k][1]) #учитель
+                        techtutor[x].append(qua[g][1]) #оценка
+iter = 0
+for x in range(len(techtutor)):    
+    ans.write(str(x+11)+ '\n')
+    for k in range(0,len(techtutor[x]),2):
+        ans.write(techtutor[x][k] + '|'+ techtutor[x][k+1] + '\n')   #Дальше в эксель (для разнообразия)
+print('done')      
 #for k in range(len(les)):
     #if les[k][3][1][0] == '2' and les[k][3][1][1] >= '1':
         #print(les[k][3]) # ['2020-01-16', '21:34:17.949531'] - только в этом случае из-за часового пояса изменится дата 
