@@ -11,14 +11,14 @@ def unique(x):
     x = set(x)
     x = list(x)
     return x
-def TheBestDataCleaner(x):
+def TheBestDataCleaner(x):       #функция очистки данных
     x = x.split('\n ')
     for k in range(len(x)):
         x[k] = x[k].split('|')
         x[k][0] = x[k][0].replace(' ','')
         x[k][1] = x[k][1].replace(' ','')
-    return x
-def TheBestDataCleaner2(y):
+    return x      
+def TheBestDataCleaner2(y):      #функция очистки данных для другого типа файлов
     y = y.split('\n ')
     for k in range(len(y)):
         y[k] = y[k].split('|')
