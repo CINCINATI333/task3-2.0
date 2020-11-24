@@ -89,7 +89,7 @@ for x in range(len(techtutor)):
 for x in range(len(techtutorohnespases)):    
     ans.write(str(x+11)+ '\n')
     for k in range(0,len(techtutorohnespases[x]),2):
-        ans.write(techtutorohnespases[x][k] + '|'+ techtutorohnespases[x][k+1] + '\n')   #Дальше в эксель (для разнообразия)
+        ans.write(techtutorohnespases[x][k] + '|'+ techtutorohnespases[x][k+1] + '\n')   #Дальше в эксель (для наглядности)
 print('done')      
 '''
 for k in range(len(les)):
